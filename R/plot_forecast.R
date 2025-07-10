@@ -1,19 +1,24 @@
-
-#' Plot Forecast Data
-#' @param forecast_df Data frame from get_forecast
-#' @return A ggplot object
+#' Plot Weather Forecast
+#'
+#' @param forecast_df A data frame returned from `get_forecast_by_location()` or `get_forecast()`
+#'
+#' @return A ggplot object showing temperature and precipitation
 #' @importFrom ggplot2 ggplot aes geom_line geom_col labs theme_minimal
-#' @importFrom rlang .data
 #' @export
 plot_forecast <- function(forecast_df) {
-  library(ggplot2)
-  ggplot(forecast_df, aes(x = as.Date(date))) +
-    geom_line(aes(y = temp_max), color = "red") +
-    geom_line(aes(y = temp_min), color = "blue") +
-    geom_col(aes(y = precipitation * 2), fill = "lightblue", alpha = 0.3) +
-    labs(
+  utils::globalVariables(c("temp_max", "temp_min", "precipitation"))
+
+  ggplot2::ggplot(forecast_df, ggplot2::aes(x = date)) +
+    ggplot2::geom_line(ggplot2::aes(y = temp_max, color = "Max Temp")) +
+    ggplot2::geom_line(ggplot2::aes(y = temp_min, color = "Min Temp")) +
+    ggplot2::geom_col(ggplot2::aes(y = precipitation * 2, fill = "Precipitation"), alpha = 0.3) +
+    ggplot2::labs(
       title = "Weather Forecast",
-      y = "Temp (°C) / Precipitation (x2 mm)", x = "Date"
+      y = "Temp (\u00B0C) / Precipitation (x2 mm)",
+      x = "Date",
+      color = "Legend",
+      fill = "Legend"
     ) +
-    theme_minimal()
+    ggplot2::theme_minimal()
 }
+

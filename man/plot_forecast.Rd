@@ -2,16 +2,16 @@
 % Please edit documentation in R/plot_forecast.R
 \name{plot_forecast}
 \alias{plot_forecast}
-\title{Plot Forecast Data}
+\title{Plot Weather Forecast}
 \usage{
 plot_forecast(forecast_df)
 }
 \arguments{
-\item{forecast_df}{Data frame from get_forecast}
+\item{forecast_df}{A data frame returned from \code{get_forecast_by_location()} or \code{get_forecast()}}
 }
 \value{
-A ggplot object
+A ggplot object showing temperature and precipitation
 }
 \description{
-Plot Forecast Data
+Plot Weather Forecast
 }
