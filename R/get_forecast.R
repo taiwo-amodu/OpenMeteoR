@@ -2,6 +2,7 @@
 #' @param location A city or town name
 #' @param days Number of forecast days
 #' @return A data.frame with forecast data
+#' @importFrom httr2 request req_user_agent req_url_query req_perform resp_body_json
 #' @export
 get_forecast_by_location <- function(location, days = 1) {
   library(httr2)

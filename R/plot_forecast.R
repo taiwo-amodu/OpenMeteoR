@@ -1,5 +1,9 @@
+
 #' Plot Forecast Data
 #' @param forecast_df Data frame from get_forecast
+#' @return A ggplot object
+#' @importFrom ggplot2 ggplot aes geom_line geom_col labs theme_minimal
+#' @importFrom rlang .data
 #' @export
 plot_forecast <- function(forecast_df) {
   library(ggplot2)

@@ -9,6 +9,9 @@ plot_forecast(forecast_df)
 \arguments{
 \item{forecast_df}{Data frame from get_forecast}
 }
+\value{
+A ggplot object
+}
 \description{
 Plot Forecast Data
 }
