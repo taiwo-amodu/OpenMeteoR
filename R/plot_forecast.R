@@ -6,7 +6,6 @@
 #' @importFrom ggplot2 ggplot aes geom_line geom_col labs theme_minimal
 #' @export
 plot_forecast <- function(forecast_df) {
-  utils::globalVariables(c("temp_max", "temp_min", "precipitation"))
 
   ggplot2::ggplot(forecast_df, ggplot2::aes(x = date)) +
     ggplot2::geom_line(ggplot2::aes(y = temp_max, color = "Max Temp")) +
