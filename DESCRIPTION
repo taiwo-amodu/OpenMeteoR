@@ -1,9 +1,10 @@
 Package: OpenMeteoR
-Title: What the Package Does (One Line, Title Case)
+Title: Access and Visualize Weather Forecasts
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+    person("Taiwo", "Amodu", , "amodutaiwo22@gmail.com", role = c("aut", "cre"))
+Description: An R package that fetches short-term weather forecast data from Open-Meteo API 
+             using location names, and visualizes it.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
