@@ -1,22 +1,33 @@
-#' Get Forecast Using a Place Name
-#'
-#' @param location A city or town name
+#' Get weather forecast by coordinates
+#' @param lat Latitude
+#' @param lon Longitude
 #' @param days Number of forecast days
-#' @return A data.frame with forecast data
-#'
-#' @importFrom httr2 request req_user_agent req_url_query req_perform resp_body_json
+#' @return An object of class forecast_result
 #' @export
-get_forecast_by_location <- function(location, days = 1) {
-  geo_url <- httr2::request("https://nominatim.openstreetmap.org/search") |>
-    httr2::req_url_query(q = location, format = "json", limit = 1) |>
+get_forecast <- function(lat, lon, days = 1) {
+  base_url <- "https://api.open-meteo.com/v1/forecast"
+  req <- httr2::request(base_url) |>
+    httr2::req_url_query(
+      latitude = lat,
+      longitude = lon,
+      daily = c("temperature_2m_max", "temperature_2m_min", "precipitation_sum"),
+      timezone = "auto",
+      forecast_days = days,
+      .multi = "comma"
+    ) |>
     httr2::req_user_agent("OpenMeteoR Package")
 
-  geo_data <- httr2::req_perform(geo_url) |> httr2::resp_body_json()
+  resp <- httr2::req_perform(req)
+  content <- httr2::resp_body_json(resp)
 
-  if (length(geo_data) == 0) stop("Location not found")
+  daily <- content$daily
+  forecast_df <- data.frame(
+    date = as.Date(unlist(daily$time)),
+    temp_max = unlist(daily$temperature_2m_max),
+    temp_min = unlist(daily$temperature_2m_min),
+    precipitation = unlist(daily$precipitation_sum)
+  )
 
-  lat <- as.numeric(geo_data[[1]]$lat)
-  lon <- as.numeric(geo_data[[1]]$lon)
-
-  return(get_forecast(lat, lon, days))
+  return(create_forecast_result(location = paste(lat, lon, sep = ","), forecast_data = forecast_df))
 }
+
