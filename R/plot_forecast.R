@@ -8,7 +8,7 @@ plot.forecast_result <- function(x, ...) {
     ggplot2::labs(
       title = paste("Weather Forecast for", x$location),
       x = "Date",
-      y = "Temperature (°C) / Precipitation (x2 mm)"
+      y = "Temperature (\u00b0C) / Precipitation (x2 mm)"
     ) +
     ggplot2::theme_minimal()
 }
