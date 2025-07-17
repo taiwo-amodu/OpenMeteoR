@@ -44,6 +44,6 @@ plot.forecast_comparison <- function(x, ...) {
   library(ggplot2)
   ggplot(x$data, aes(x = date, y = temp_max, color = location, group = location)) +
     geom_line(size = 1.2) +
-    labs(title = "Max Temperature Forecast Comparison", y = "Temp Max (°C)", x = "Date") +
+    labs(title = "Max Temperature Forecast Comparison", y = "Temp Max (\u00b0C)", x = "Date") +
     theme_minimal()
 }
