@@ -3,7 +3,6 @@
 #' @param locations A character vector of city names
 #' @param days Number of forecast days
 #' @return An object of class forecast_comparison
-#' @param ... Additional arguments (ignored).
 #' @export
 compare_forecasts <- function(locations, days = 3) {
   results <- lapply(locations, function(city) {

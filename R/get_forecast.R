@@ -3,7 +3,6 @@
 #' @param lon Longitude
 #' @param days Number of forecast days
 #' @return An object of class forecast_result
-#' @param ... Additional arguments (ignored).
 #' @export
 get_forecast <- function(lat, lon, days = 1) {
   base_url <- "https://api.open-meteo.com/v1/forecast"

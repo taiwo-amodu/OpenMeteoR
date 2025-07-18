@@ -1,8 +1,10 @@
 #' Create a forecast_result object
+#' @importFrom ggplot2 ggplot aes geom_line labs theme_minimal
+#' @importFrom utils head
+#' @importFrom stats aggregate
 #' @param location Name of location (string)
 #' @param forecast_data A data.frame with date, temp_max, temp_min, precipitation
 #' @return An object of class forecast_result
-#' @param ... Additional arguments (ignored).
 #' @export
 create_forecast_result <- function(location, forecast_data) {
   structure(
@@ -16,7 +18,6 @@ create_forecast_result <- function(location, forecast_data) {
 
 #' Print method for forecast_result
 #' @param x A forecast_result object
-#' @param ... Further arguments
 #' @export
 print.forecast_result <- function(x, ...) {
   cat("Forecast for:", x$location, "\n")
@@ -25,7 +26,6 @@ print.forecast_result <- function(x, ...) {
 
 #' Summary method for forecast_result
 #' @param object A forecast_result object
-#' @param ... Further arguments
 #' @export
 summary.forecast_result <- function(object, ...) {
   cat("Forecast Summary for:", object$location, "\n")
