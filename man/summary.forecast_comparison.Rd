@@ -10,6 +10,8 @@
 }
 \arguments{
 \item{object}{forecast_comparison object}
+
+\item{...}{Further arguments passed to or from other methods.}
 }
 \description{
 Summary method for forecast_comparison

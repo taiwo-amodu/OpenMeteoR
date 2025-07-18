@@ -18,6 +18,7 @@ create_forecast_result <- function(location, forecast_data) {
 
 #' Print method for forecast_result
 #' @param x A forecast_result object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 print.forecast_result <- function(x, ...) {
   cat("Forecast for:", x$location, "\n")
@@ -26,6 +27,7 @@ print.forecast_result <- function(x, ...) {
 
 #' Summary method for forecast_result
 #' @param object A forecast_result object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 summary.forecast_result <- function(object, ...) {
   cat("Forecast Summary for:", object$location, "\n")
@@ -37,6 +39,7 @@ summary.forecast_result <- function(object, ...) {
 
 #' Plot method for forecast_result
 #' @param x A forecast_result object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 plot.forecast_result <- function(x, ...) {
   df <- x$data
@@ -76,6 +79,7 @@ compare_forecasts <- function(locations, days = 3) {
 
 #' Print method for forecast_comparison
 #' @param x A forecast_comparison object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 print.forecast_comparison <- function(x, ...) {
   cat("Forecast comparison for cities:\n")
@@ -86,6 +90,7 @@ print.forecast_comparison <- function(x, ...) {
 
 #' Summary method for forecast_comparison
 #' @param object A forecast_comparison object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 summary.forecast_comparison <- function(object, ...) {
   cat("Summary of forecast across cities:\n")
@@ -95,6 +100,7 @@ summary.forecast_comparison <- function(object, ...) {
 
 #' Plot method for forecast_comparison
 #' @param x A forecast_comparison object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 plot.forecast_comparison <- function(x, ...) {
   ggplot2::ggplot(x$data, ggplot2::aes(x = date, y = temp_max, color = location, group = location)) +

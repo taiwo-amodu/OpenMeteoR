@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{A forecast_result object}
 
-\item{...}{Further arguments}
+\item{...}{Further arguments passed to or from other methods.}
 }
 \description{
 Summary method for forecast_result

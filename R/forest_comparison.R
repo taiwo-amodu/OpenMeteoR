@@ -31,6 +31,7 @@ print.forecast_comparison <- function(x, ...) {
 
 #' Summary method for forecast_comparison
 #' @param object forecast_comparison object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 summary.forecast_comparison <- function(object, ...) {
   cat("Summary of forecast comparison\n")
@@ -39,6 +40,7 @@ summary.forecast_comparison <- function(object, ...) {
 
 #' Plot method for forecast_comparison
 #' @param x forecast_comparison object
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 plot.forecast_comparison <- function(x, ...) {
   ggplot(x$data, aes(x = date, y = temp_max, color = location, group = location)) +

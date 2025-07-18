@@ -1,3 +1,4 @@
+#' @param ... Further arguments passed to or from other methods.
 #' @export
 plot.forecast_result <- function(x, ...) {
   df <- x$data
