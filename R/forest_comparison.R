@@ -3,6 +3,7 @@
 #' @param locations A character vector of city names
 #' @param days Number of forecast days
 #' @return An object of class forecast_comparison
+#' @param ... Additional arguments (ignored).
 #' @export
 compare_forecasts <- function(locations, days = 3) {
   results <- lapply(locations, function(city) {
@@ -41,7 +42,6 @@ summary.forecast_comparison <- function(object, ...) {
 #' @param x forecast_comparison object
 #' @export
 plot.forecast_comparison <- function(x, ...) {
-  library(ggplot2)
   ggplot(x$data, aes(x = date, y = temp_max, color = location, group = location)) +
     geom_line(size = 1.2) +
     labs(title = "Max Temperature Forecast Comparison", y = "Temp Max (\u00b0C)", x = "Date") +

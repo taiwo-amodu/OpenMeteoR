@@ -2,6 +2,7 @@
 #' @param location Name of location (string)
 #' @param forecast_data A data.frame with date, temp_max, temp_min, precipitation
 #' @return An object of class forecast_result
+#' @param ... Additional arguments (ignored).
 #' @export
 create_forecast_result <- function(location, forecast_data) {
   structure(
@@ -46,7 +47,7 @@ plot.forecast_result <- function(x, ...) {
     ggplot2::labs(
       title = paste("Forecast for", x$location),
       x = "Date",
-      y = "Temperature (°C) / Precipitation (x2 mm)"
+      y = "Temperature (\u00b0C) / Precipitation (x2 mm)"
     ) +
     ggplot2::theme_minimal()
 }
@@ -101,7 +102,7 @@ plot.forecast_comparison <- function(x, ...) {
     ggplot2::labs(
       title = "Max Temperature Forecast Comparison",
       x = "Date",
-      y = "Max Temp (°C)"
+      y = "Max Temp (\u00b0C)"
     ) +
     ggplot2::theme_minimal()
 }

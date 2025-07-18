@@ -2,6 +2,7 @@
 #' @param location A city or town name
 #' @param days Number of forecast days
 #' @return An object of class forecast_result
+#' @param ... Additional arguments (ignored).
 #' @export
 get_forecast_by_location <- function(location, days = 1) {
   geo_url <- httr2::request("https://nominatim.openstreetmap.org/search") |>

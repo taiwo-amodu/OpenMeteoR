@@ -1,1 +1,1 @@
-utils::globalVariables(c("temp_max", "temp_min", "precipitation"))
+utils::globalVariables(c("location", "temp_max", "temp_min", "precipitation"))
