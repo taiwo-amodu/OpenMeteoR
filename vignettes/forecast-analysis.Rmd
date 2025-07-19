@@ -1,4 +1,4 @@
----
+
 title: "Weather Forecasting with OpenMeteoR"
 author: "Taiwo Amodu"
 output: rmarkdown::html_vignette
@@ -15,155 +15,159 @@ library(OpenMeteoR)
 
 ## Introduction
 
-The `OpenMeteoR` package provides an object-oriented interface for retrieving and visualizing short-term weather forecasts using the [Open-Meteo API](https://open-meteo.com/) and OpenStreetMap’s Nominatim geocoding service. The package is software-oriented, using custom S3 classes and methods for extensibility.
+The `OpenMeteoR` package provides a lightweight, object-oriented interface to access and visualize short-term weather forecasts. It leverages the Open-Meteo API and OpenStreetMap's Nominatim service for geocoding.
 
-Key features:
-- Retrieve forecasts using **coordinates** or **location names**
-- Encapsulate results in structured **`forecast_result` S3 class**
-- Support for custom **methods**: `print()`, `summary()`, `plot()`
+Key highlights:
+- Retrieve weather forecasts using **coordinates** or **city names**
+- Output stored in structured S3 objects: `forecast_result` and `forecast_comparison`
+- Custom S3 methods for `print()`, `summary()`, and `plot()`
+- Built-in ggplot2 visualizations
 - No API key required
 
-This vignette walks through its core functionalities and software design.
+This vignette walks you through the main features of the package.
 
 ## Installation
 
-Install from source:
+If you have a local `.tar.gz` package (e.g., `OpenMeteoR_0.0.0.9000.tar.gz`), install with:
 
 ```r
-install.packages("OpenMeteoR_0.1.0.tar.gz", repos = NULL, type = "source")
+install.packages("OpenMeteoR_0.0.0.9000.tar.gz", repos = NULL, type = "source")
 ```
 
-Then load the package:
+Then load the library:
 
 ```r
 library(OpenMeteoR)
 ```
 
-## Software Design Overview
+---
 
-The package defines a new S3 class: **`forecast_result`**, which contains:
-- `location`: Name of the queried location
-- `data`: A data frame of forecast values
+## 1. Getting Forecast by Location
 
-Custom methods include:
+Use `get_forecast_by_location()` to fetch daily forecasts using city names:
 
-| Method         | Description                                 |
-|----------------|---------------------------------------------|
-| `print()`      | Cleanly displays forecast results           |
-| `summary()`    | Returns a summary of temperature & rain     |
-| `plot()`       | Visualizes trends using ggplot2             |
-
-## Getting Forecast by Location Name
-
-```r
+```{r}
 result <- get_forecast_by_location("Berlin", days = 3)
-print(result)  # Uses print.forecast_result
 ```
 
-```r
-summary(result)  # Uses summary.forecast_result
+### Inspect with `print()`
+
+```{r}
+print(result)
 ```
 
-```r
-plot(result)  # Uses plot.forecast_result
-```
+### Summarize with `summary()`
 
-### Sample Output (from `print()`)
-
-```
-$location
-[1] "Berlin"
-
-$data
-        date temp_max temp_min precipitation
-1 2025-07-13     21.3     16.2          18.7
-2 2025-07-14     25.6     16.0           4.1
-3 2025-07-15     21.2     16.0           5.3
-```
-
-## Getting Forecast by Coordinates
-
-```r
-result <- get_forecast(lat = 48.8566, lon = 2.3522, days = 3)
+```{r}
 summary(result)
 ```
 
-## How It Works
+### Visualize with `plot()`
 
-### 1. Geocoding Place Names
-
-The `get_forecast_by_location()` function uses OpenStreetMap’s Nominatim API to geocode the input:
-
-```r
-https://nominatim.openstreetmap.org/search?q=Berlin&format=json&limit=1
-```
-
-This provides latitude and longitude for the location.
-
-### 2. Querying Weather Forecasts
-
-The `get_forecast()` function calls:
-
-```r
-https://api.open-meteo.com/v1/forecast
-```
-
-with query parameters like:
-- `latitude`, `longitude`
-- `daily=temperature_2m_max,temperature_2m_min,precipitation_sum`
-- `forecast_days=n`
-
-### 3. S3 Class Output
-
-Results are stored as:
-
-```r
-structure(
-  list(location = "Berlin", data = <data.frame>),
-  class = "forecast_result"
-)
-```
-
-## Visualizing the Forecast
-
-```r
+```{r}
 plot(result)
 ```
 
-Generates a dual-axis plot:
-- Line chart for max/min temperatures
-- Bar chart for precipitation
+The plot shows:
+- Max/Min temperatures as lines
+- Precipitation as shaded bars
+
+---
+
+## 2. Getting Forecast by Coordinates
+
+Use `get_forecast()` to specify latitude and longitude directly:
+
+```{r}
+coords_result <- get_forecast(lat = 48.8566, lon = 2.3522, days = 3)
+summary(coords_result)
+plot(coords_result)
+```
+
+---
+
+## 3. Comparing Multiple Locations
+
+The `compare_forecasts()` function compares forecasts across multiple cities and returns a `forecast_comparison` object.
+
+```{r}
+comp <- compare_forecasts(c("Berlin", "Paris", "London"), days = 3)
+```
+
+### Inspect
+
+```{r}
+print(comp)
+```
+
+### Summary
+
+```{r}
+summary(comp)
+```
+
+### Plot Comparison
+
+```{r}
+plot(comp)
+```
+
+The comparison plot overlays max temperatures for multiple cities.
+
+---
+
+## 4. S3 Classes Overview
+
+The package defines two custom S3 classes:
+
+### `forecast_result`
+
+- `location`: name of the queried location
+- `data`: data frame with columns `date`, `temp_max`, `temp_min`, `precipitation`
+
+Methods:
+- `print.forecast_result()`
+- `summary.forecast_result()`
+- `plot.forecast_result()`
+
+### `forecast_comparison`
+
+- `cities`: vector of city names
+- `data`: combined forecast data
+
+Methods:
+- `print.forecast_comparison()`
+- `summary.forecast_comparison()`
+- `plot.forecast_comparison()`
+
+---
 
 ## Error Handling
 
-- If an invalid place is entered (e.g., `"Texa"`), the function still tries to find a best match.
-- Users are advised to use precise names for reliable results.
+The package handles basic input errors:
+
+- Misspelled locations fall back to closest match from OpenStreetMap
+- API connection issues throw informative errors using `rlang::abort()`
+
+---
 
 ## Dependencies
 
-- `httr2` – for HTTP requests
-- `jsonlite` – for JSON parsing
-- `ggplot2` – for plotting
-- `rlang` – for error tracing (optional)
+- `httr2`: for making API calls
+- `jsonlite`: for parsing JSON
+- `ggplot2`: for plotting
+- `utils`, `stats`: for summary and printing
 
-## Limitations
+---
 
-- Only supports **daily** weather forecasts
-- Forecast data limited to **7–16 days**, depending on API
-- Accuracy depends on Open-Meteo and OpenStreetMap geocoding
-- Requires internet connection
+## Conclusion
 
-## Summary
+`OpenMeteoR` demonstrates software-oriented package design using S3 classes and methods to encapsulate and visualize weather forecast data. It is lightweight, user-friendly, and extensible for more advanced analysis or dashboard integration.
 
-The `OpenMeteoR` package provides a clean, object-oriented interface for accessing weather forecasts. Beyond basic data analysis, it serves as a reusable software layer with custom S3 classes and extensible methods.
-
-This makes it suitable for:
-- Integration into larger R workflows
-- Dashboards and Shiny apps
-- Teaching software design in R
+---
 
 ## Session Info
 
-```{r session-info}
+```{r}
 sessionInfo()
 ```
