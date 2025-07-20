@@ -1,4 +1,4 @@
-
+---
 title: "Weather Forecasting with OpenMeteoR"
 author: "Taiwo Amodu"
 output: rmarkdown::html_vignette
@@ -28,7 +28,7 @@ This vignette walks you through the main features of the package.
 
 ## Installation
 
-If you have a local `.tar.gz` package (e.g., `OpenMeteoR_0.0.0.9000.tar.gz`), install with:
+Using the local `.tar.gz` package 'OpenMeteoR_0.0.0.9000.tar.gz', install with:
 
 ```r
 install.packages("OpenMeteoR_0.0.0.9000.tar.gz", repos = NULL, type = "source")
