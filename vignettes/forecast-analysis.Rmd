@@ -15,10 +15,10 @@ library(OpenMeteoR)
 
 ## Introduction
 
-The `OpenMeteoR` package provides a lightweight, object-oriented interface to access and visualize short-term weather forecasts. It leverages the Open-Meteo API and OpenStreetMap's Nominatim service for geocoding.
+The `OpenMeteoR` package provides a lightweight, object-oriented interface to access and visualize short-term weather forecasts for up to 16 days. It leverages the Open-Meteo API and OpenStreetMap's Nominatim service for geocoding.
 
 Key highlights:
-- Retrieve weather forecasts using **coordinates** or **city names**
+- Retrieve weather forecasts of up to 16 days using **coordinates** or **city names**
 - Output stored in structured S3 objects: `forecast_result` and `forecast_comparison`
 - Custom S3 methods for `print()`, `summary()`, and `plot()`
 - Built-in ggplot2 visualizations

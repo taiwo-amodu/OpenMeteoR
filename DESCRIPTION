@@ -11,12 +11,11 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 URL: https://github.com/taiwo-amodu/OpenMeteoR
 BugReports: https://github.com/taiwo-amodu/OpenMeteoR/issues
-Imports:
-    httr2,
-    ggplot2
-Suggests: 
-    knitr,
-    rmarkdown,
-    testthat (>= 3.0.0)
+Imports: httr2, ggplot2
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2025-07-20 09:20:58 UTC; USER
+Author: Taiwo Amodu [aut, cre]
+Maintainer: Taiwo Amodu <amodutaiwo22@gmail.com>
